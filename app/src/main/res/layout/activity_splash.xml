@@ -8,9 +8,9 @@
     tools:context="com.huake.huakemedia.activity.MainActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/login_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/activity_splash_iv"/>
@@ -22,14 +22,14 @@
         android:layout_height="wrap_content">
         <ProgressBar
             android:layout_gravity="center"
-            android:layout_width="30dp"
-            android:layout_height="30dp"/>
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
         <TextView
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="正在启动..."
-            android:textSize="16sp"
+            android:textSize="14sp"
             />
     </LinearLayout>
 
