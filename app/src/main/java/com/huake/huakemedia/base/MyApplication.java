@@ -32,9 +32,12 @@ import org.xutils.x;
 import java.io.File;
 
 public class MyApplication extends Application {
+    private Context mContext;
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext=this;
+
         //初始化xuils3
         x.Ext.init(this);
         x.Ext.setDebug(BuildConfig.DEBUG);
@@ -42,6 +45,8 @@ public class MyApplication extends Application {
         SpeechUtility.createUtility(getApplicationContext(),SpeechConstant.APPID+"=57f64e95 ");
         //初始化imageloader
         initUniversalImageLoader();
+
+
     }
     //节操video要初始化imageloader
     private void initUniversalImageLoader() {
@@ -80,6 +85,8 @@ public class MyApplication extends Application {
                 .build();
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config);
+
+
     }
 
 }

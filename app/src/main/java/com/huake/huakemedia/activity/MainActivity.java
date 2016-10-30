@@ -1,11 +1,15 @@
 package com.huake.huakemedia.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,12 +45,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public int checkPosition;
     //储存点击的时间
     private long preTime;
+    private static final int MY_PERMISSIONS_READ_EXTERNAL_STORAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
+
+        //针对6.0适配权限
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+//            增加权限
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_READ_EXTERNAL_STORAGE);
+        }else{
+            //有权限当然就不需要管理啦
+        }
 
         mBasePagers = new ArrayList<BasePager>();
         mBasePagers.add(new VideoPager(this));//添加本地视频页面-0
@@ -141,5 +158,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         super.onBackPressed();
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+
+        if (requestCode == MY_PERMISSIONS_READ_EXTERNAL_STORAGE)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                Toast.makeText(MainActivity.this, "Permission success", Toast.LENGTH_SHORT).show();
+
+            } else
+            {
+                // Permission Denied
+                Toast.makeText(MainActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
